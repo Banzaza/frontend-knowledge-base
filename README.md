@@ -9,8 +9,6 @@ pnpm install
 pnpm dev
 ```
 
-浏览器访问 `http://localhost:5173/`
-
 ## 构建
 
 ```bash
@@ -26,6 +24,4 @@ pnpm docs:build:pages
 
 推送至 `main` 分支后，GitHub Actions 会自动部署到 GitHub Pages：
 
-**https://banzaza.github.io/frontend-knowledge-base/**
-
-首次启用请在仓库 **Settings → Pages → Build and deployment** 中将 **Source** 设为 **GitHub Actions**。
+**https://banzaza.github.io/frontend-knowledge-base**
