@@ -16,6 +16,21 @@ function mdLink(absPath: string): string {
   return `/${rel.replace(/\.md$/, '')}`
 }
 
+/** 侧栏展示名：优先使用 frontmatter title（如 Node-js.md → Node.js） */
+function pageTitle(filePath: string): string {
+  const fallback = path.basename(filePath, '.md')
+  try {
+    const head = fs.readFileSync(filePath, 'utf8').slice(0, 512)
+    const fm = head.match(/^---\r?\n([\s\S]*?)\r?\n---/)
+    if (!fm) return fallback
+    const titleLine = fm[1].match(/^title:\s*(.+)\s*$/m)
+    if (!titleLine) return fallback
+    return titleLine[1].replace(/^['"]|['"]$/g, '').trim()
+  } catch {
+    return fallback
+  }
+}
+
 function scan(dir: string): DefaultTheme.SidebarItem[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true })
   const items: DefaultTheme.SidebarItem[] = []
@@ -38,7 +53,7 @@ function scan(dir: string): DefaultTheme.SidebarItem[] {
     }
     if (!entry.name.endsWith('.md') || entry.name === 'index.md') continue
     if (dir === ROOT && SKIP_FILES.has(entry.name)) continue
-    items.push({ text: entry.name.replace(/\.md$/, ''), link: mdLink(full) })
+    items.push({ text: pageTitle(full), link: mdLink(full) })
   }
   return items
 }
