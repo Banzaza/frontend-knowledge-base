@@ -6,6 +6,7 @@ export default defineConfig({
   lang: 'zh-CN',
   title: 'Frontend Knowledge Base',
   description: 'Frontend Knowledge Base for Banzaza.',
+  srcExclude: ['**/README.md'],
   markdown: {
     // 文档里大量提及 HTML 标签，关闭原始 HTML 解析避免 Vue 编译报错
     html: false,

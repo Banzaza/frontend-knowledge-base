@@ -4,7 +4,11 @@ import { fileURLToPath } from 'node:url'
 import type { DefaultTheme } from 'vitepress'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const SKIP_FILES = new Set(['api-examples.md', 'markdown-examples.md'])
+const SKIP_FILES = new Set([
+  'README.md',
+  'api-examples.md',
+  'markdown-examples.md',
+])
 const SKIP_DIRS = new Set(['.vitepress', 'node_modules', 'scripts', '.git'])
 
 function mdLink(absPath: string): string {
